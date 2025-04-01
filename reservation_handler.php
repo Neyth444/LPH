@@ -4,7 +4,7 @@ $dbname = 'los_pollos';
 $user = 'root';
 $pass = '';
 
-// Connexion à la base
+// conn a la bdd
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -29,8 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         ':service' => $service
     ]);
 
-    // Rediriger ou afficher un message ici
-    echo "Réservation enregistrée avec succès.";
+   header("Location: index.html");
+   exit;
 }
 
 ?>
