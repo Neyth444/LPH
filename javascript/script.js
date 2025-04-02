@@ -127,21 +127,3 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-    fetch('header.html')
-        .then(res => res.text())
-        .then(data => {
-            document.getElementById('include-header').innerHTML = data;
-        });
-
-
-    fetch('presentation.html')
-        .then(res => res.text())
-        .then(data => {
-            document.getElementById('include-presentation').innerHTML = data;
-        });
-
-    fetch('menu.html')
-        .then(res => res.text())
-        .then(data => {
-            document.getElementById('include-menu').innerHTML = data;
-        });
