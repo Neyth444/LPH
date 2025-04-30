@@ -1,7 +1,18 @@
 <?php
-// con a la bdd
-$pdo = new PDO("mysql:host=localhost;dbname=los_pollos;charset=utf8", "root", "");
-$reservations = $pdo->query("SELECT * FROM reservations ORDER BY date_created DESC")->fetchAll(PDO::FETCH_ASSOC);
+// Connexion à la base de données
+$host = 'localhost';
+$dbname = 'los_pollos_hermanos';
+$user = 'root';
+$pass = '';
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $stmt = $pdo->query("SELECT * FROM reservations ORDER BY date_creation DESC");
+    $reservations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Erreur de connexion : " . $e->getMessage());
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,17 +45,18 @@ $reservations = $pdo->query("SELECT * FROM reservations ORDER BY date_created DE
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($reservations as $resa): ?>
-            <tr>
-                <td><?= $resa['id'] ?></td>
-                <td><?= htmlspecialchars($resa['nom']) ?></td>
-                <td><?= htmlspecialchars($resa['email']) ?></td>
-                <td><?= $resa['date_reservation'] ?></td>
-                <td><?= $resa['service'] ?></td>
-                <td><?= $resa['date_created'] ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
+    <?php foreach ($reservations as $res): ?>
+        <tr>
+            <td><?= htmlspecialchars($res['id']) ?></td>
+            <td><?= htmlspecialchars($res['nom']) ?></td>
+            <td><?= htmlspecialchars($res['email']) ?></td>
+            <td><?= htmlspecialchars($res['date_reservation']) ?></td>
+            <td><?= htmlspecialchars($res['service']) ?></td>
+            <td><?= htmlspecialchars($res['date_creation']) ?></td>
+        </tr>
+    <?php endforeach; ?>
+</tbody>
+
 </table>
 
 </body>

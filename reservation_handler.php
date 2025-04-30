@@ -1,10 +1,10 @@
 <?php
 $host = 'localhost';
-$dbname = 'los_pollos';
+$dbname = 'los_pollos_hermanos';
 $user = 'root';
 $pass = '';
 
-// conn a la bdd
+// connexion a la bdd
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $user, $pass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -12,11 +12,16 @@ try {
     die("Erreur de connexion : " . $e->getMessage());
 }
 
+// evite les failles xss et injection sql  en validant les données utilisateurs.
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $nom = $_POST['nom'];
-    $email = $_POST['email'];
+    $nom = htmlspecialchars(trim($_POST['nom']));
+    $email = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
     $date_reservation = $_POST['date-reservation'];
     $service = $_POST['service'];
+
+    if (!$email) {
+        die("Adresse email invalide.");
+    }
 
     $sql = "INSERT INTO reservations (nom, email, date_reservation, service) 
             VALUES (:nom, :email, :date_reservation, :service)";
@@ -29,8 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         ':service' => $service
     ]);
 
-   header("Location: index.html");
-   exit;
+    header("Location: index.php?confirmation=1");
+    exit;
 }
-
 ?>

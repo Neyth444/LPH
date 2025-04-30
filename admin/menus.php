@@ -1,5 +1,5 @@
 <?php
-$pdo = new PDO("mysql:host=localhost;dbname=los_pollos;charset=utf8", "root", "");
+$pdo = new PDO("mysql:host=localhost;dbname=los_pollos_hermanos;charset=utf8", "root", "");
 
 // add menu
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

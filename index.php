@@ -46,6 +46,11 @@ include "menus.php";
 
         <button type="submit">Réserver</button>
     </form>
+<?php if (isset($_GET['confirmation']) && $_GET['confirmation'] == 1): ?>
+    <div class="confirmation-message">
+        Votre réservation a bien été enregistrée !
+    </div>
+<?php endif; ?>
 </section>
 
 <footer>

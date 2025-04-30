@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 
 try {
-    $pdo = new PDO("mysql:host=localhost;dbname=los_pollos;charset=utf8", "root", "");
+    $pdo = new PDO("mysql:host=localhost;dbname=los_pollos_hermanos;charset=utf8", "root", "");
     $menus = $pdo->query("SELECT * FROM menus")->fetchAll(PDO::FETCH_ASSOC);
 
     // transforme le champ items de JSON string → array
